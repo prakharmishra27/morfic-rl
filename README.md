@@ -8,6 +8,10 @@ Prakhar Mishra, Amir Hossain Raj, Xuesu Xiao, and Dinesh Manocha
 [Paper](https://arxiv.org/abs/2603.14554) |
 [Project page](https://prakharmishra27.github.io/MorFiC/)
 
+## Architecture
+
+![MorFiC architecture](media/morfic_overview.png)
+
 ## Overview
 
 MorFiC studies critic miscalibration in cross-morphology reinforcement
