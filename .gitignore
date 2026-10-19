@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Generated outputs
+/outputs/
+/logs/
+/latent_figs/
+/scripts/npz/
+/scripts/saved/
+/scripts/saved_npz/
+/scripts/temp/
+/scripts/tmp/
+
+# Ignore runs except the released checkpoint directory
+/runs/*
+!/runs/gait-conditioned-agility/
+/runs/gait-conditioned-agility/*
+!/runs/gait-conditioned-agility/2026-05-15/
+/runs/gait-conditioned-agility/2026-05-15/*
+!/runs/gait-conditioned-agility/2026-05-15/train/
+/runs/gait-conditioned-agility/2026-05-15/train/*
+!/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/
+
+# Editor and OS files
+.vscode/
+.idea/
+*~
+.DS_Store
+
+# Only release final configuration, weights, and policy exports
+/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/*
+!/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/parameters.pkl
+!/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/checkpoints/
+
+/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/checkpoints/*
+!/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/checkpoints/ac_weights_last.pt
+!/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/checkpoints/body_latest.jit
+!/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/checkpoints/adaptation_module_latest.jit
+!/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/checkpoints/morph_encoder_latest.jit
+!/runs/gait-conditioned-agility/2026-05-15/train/003739.836224/checkpoints/model_config_last.pkl

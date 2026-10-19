@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="anymal">
+
+  <!-- =======================
+       BASE
+       ======================= -->
+  <link name="base">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/base.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+
+    <!-- base collision approximations -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><box size="0.58 0.14 0.18"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="0.2175 0.07 0"/>
+      <geometry><cylinder length="0.145" radius="0.09"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.2175 0.07 0"/>
+      <geometry><cylinder length="0.145" radius="0.09"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="0.2175 -0.07 0"/>
+      <geometry><cylinder length="0.145" radius="0.09"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.2175 -0.07 0"/>
+      <geometry><cylinder length="0.145" radius="0.09"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="base_to_base_inertia" type="fixed">
+    <parent link="base"/>
+    <child link="base_inertia"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="base_inertia">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.018 -0.002 0.024"/>
+      <mass value="6.222"/>
+      <inertia ixx="0.017938806" ixy="0.00387963" ixz="0.001500772"
+               iyy="0.370887745" iyz="6.8963e-05" izz="0.372497653"/>
+    </inertial>
+  </link>
+
+  <joint name="base_top_shell" type="fixed">
+    <parent link="base"/>
+    <child link="top_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="top_shell">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><mesh filename="../meshes/top_shell.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00777 -0.00013 0.06523"/>
+      <mass value="0.534"/>
+      <inertia ixx="0.00664789486" ixy="1.247923e-05" ixz="0.00053990097"
+               iyy="0.02587392411" iyz="3.7614e-07" izz="0.03152303792"/>
+    </inertial>
+  </link>
+
+  <joint name="base_bottom_shell" type="fixed">
+    <parent link="base"/>
+    <child link="bottom_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="bottom_shell">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><mesh filename="../meshes/bottom_shell.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00333 1e-05 -0.07705"/>
+      <mass value="1.15"/>
+      <inertia ixx="0.00927353677" ixy="5.41222e-06" ixz="9.039821e-05"
+               iyy="0.06134388239" iyz="2.3042e-07" izz="0.06853531465"/>
+    </inertial>
+  </link>
+
+  <joint name="base_remote" type="fixed">
+    <parent link="base"/>
+    <child link="remote"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="remote">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><mesh filename="../meshes/remote.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.171 0.002 0.096"/>
+      <mass value="0.3262"/>
+      <inertia ixx="0.000528486" ixy="4.547e-05" ixz="1.10327e-05"
+               iyy="0.001165035" iyz="7.4e-07" izz="0.00124026"/>
+    </inertial>
+  </link>
+
+  <joint name="base_handle" type="fixed">
+    <parent link="base"/>
+    <child link="handle"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="handle">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><mesh filename="../meshes/handle.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.37801 0.0 0.1372"/>
+      <mass value="0.314"/>
+      <inertia ixx="0.001525739" ixy="0.0" ixz="6.272e-05"
+               iyy="0.00071584" iyz="1e-09" izz="0.001164779"/>
+    </inertial>
+  </link>
+
+  <joint name="base_face_front" type="fixed">
+    <parent link="base"/>
+    <child link="face_front"/>
+    <origin rpy="0 0 0" xyz="0.4145 0 0"/>
+  </joint>
+
+  <link name="face_front">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><mesh filename="../meshes/face.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.055 0 0"/>
+      <geometry><box size="0.11 0.14 0.18"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="0.055 0.07 0"/>
+      <geometry><cylinder length="0.11" radius="0.09"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="0.055 -0.07 0"/>
+      <geometry><cylinder length="0.11" radius="0.09"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.042 -0.001 0.004"/>
+      <mass value="0.73"/>
+      <inertia ixx="0.005238611" ixy="1.7609e-05" ixz="7.2167e-05"
+               iyy="0.002643098" iyz="1.9548e-05" izz="0.004325938"/>
+    </inertial>
+  </link>
+
+  <joint name="base_face_rear" type="fixed">
+    <parent link="base"/>
+    <child link="face_rear"/>
+    <origin rpy="0 0 3.14159265359" xyz="-0.4145 0 0"/>
+  </joint>
+
+  <link name="face_rear">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><mesh filename="../meshes/face.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.055 0 0"/>
+      <geometry><box size="0.11 0.14 0.18"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="0.055 0.07 0"/>
+      <geometry><cylinder length="0.11" radius="0.09"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="0.055 -0.07 0"/>
+      <geometry><cylinder length="0.11" radius="0.09"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.042 -0.001 0.004"/>
+      <mass value="0.73"/>
+      <inertia ixx="0.005238611" ixy="1.7609e-05" ixz="7.2167e-05"
+               iyy="0.002643098" iyz="1.9548e-05" izz="0.004325938"/>
+    </inertial>
+  </link>
+
+  <!-- IMU -->
+  <link name="imu_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.005"/>
+      <geometry><box size="0.024 0.024 0.01"/></geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.005"/>
+      <geometry><box size="0.024 0.024 0.01"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="5.63333333333e-07" ixy="0" ixz="0"
+               iyy="9.6e-07" iyz="0" izz="5.63333333333e-07"/>
+    </inertial>
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base"/>
+    <child link="imu_link"/>
+    <origin rpy="0 0 1.57079632679" xyz="0.2488 0.00835 0.04628"/>
+  </joint>
+
+  <!-- Battery -->
+  <joint name="base_battery" type="fixed">
+    <parent link="base"/>
+    <child link="battery"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="battery">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><mesh filename="../meshes/battery.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00067 -0.00023 -0.03362"/>
+      <mass value="5.53425"/>
+      <inertia ixx="0.00749474794" ixy="0.00016686282" ixz="7.82763e-05"
+               iyy="0.0722338913" iyz="1.42902e-06" izz="0.07482717535"/>
+    </inertial>
+  </link>
+
+  <!-- Lidar -->
+  <joint name="base_to_lidar_cage" type="fixed">
+    <parent link="base"/>
+    <child link="lidar_cage"/>
+    <origin rpy="0 0 0" xyz="-0.364 0.0 0.0735"/>
+  </joint>
+
+  <link name="lidar_cage">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><mesh filename="../meshes/lidar_cage.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
+      <geometry><cylinder length="0.12" radius="0.07"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.002 0.0 0.099"/>
+      <mass value="0.545"/>
+      <inertia ixx="0.003156254" ixy="0" ixz="1.0992e-05"
+               iyy="0.002357216" iyz="0" izz="0.001326455"/>
+    </inertial>
+  </link>
+
+  <joint name="lidar_cage_to_lidar" type="fixed">
+    <parent link="lidar_cage"/>
+    <child link="lidar"/>
+    <origin rpy="0 0 -1.57079632679" xyz="0 0 0.0687"/>
+  </joint>
+
+  <link name="lidar">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><mesh filename="../meshes/lidar.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.012 0.001 -0.008"/>
+      <mass value="0.695"/>
+      <inertia ixx="0.000846765" ixy="6.9565e-05" ixz="0.00027111"
+               iyy="0.001367583" iyz="5.8984e-05" izz="0.001363673"/>
+    </inertial>
+  </link>
+
+  <!-- Hatch -->
+  <joint name="base_hatch" type="fixed">
+    <parent link="base"/>
+    <child link="hatch"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="hatch">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.116 0 0.073"/>
+      <geometry><mesh filename="../meshes/hatch.dae" scale="1 1 1"/></geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.116 0 0.0758"/>
+      <mass value="0.142"/>
+      <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
+    </inertial>
+  </link>
+
+
+  <!-- ==========================================================
+       FRONT LEFT (FL)  (was LF)
+       ========================================================== -->
+  <joint name="base_FL_HAA_fixed" type="fixed">
+    <parent link="base"/>
+    <child link="FL_HAA_MOTOR"/>
+    <origin rpy="2.61799387799 0 0" xyz="0.2999 0.104 0.0"/>
+  </joint>
+
+  <link name="FL_HAA_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="FL_hip_joint" type="revolute">
+    <parent link="FL_HAA_MOTOR"/>
+    <child link="FL_hip"/>
+    <origin rpy="-2.61799387799 0 0" xyz="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="80.0" lower="-0.72" upper="0.49" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="FL_hip">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/hip_l.dae" scale="1 1 1"/></geometry></visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.048 0.008 -0.003"/>
+      <mass value="0.74"/>
+      <inertia ixx="0.001393106" ixy="8.4012e-05" ixz="2.3378e-05"
+               iyy="0.003798579" iyz="7.1319e-05" izz="0.003897509"/>
+    </inertial>
+  </link>
+
+  <joint name="FL_hip_to_FL_HFE_fixed" type="fixed">
+    <parent link="FL_hip"/>
+    <child link="FL_HFE_MOTOR"/>
+    <origin rpy="0 0 1.57079632679" xyz="0.0599 0.08381 0.0"/>
+  </joint>
+
+  <link name="FL_HFE_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.07 0 0"/>
+      <geometry><cylinder length="0.14" radius="0.05"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="FL_thigh_joint" type="revolute">
+    <parent link="FL_HFE_MOTOR"/>
+    <child link="FL_thigh"/>
+    <origin rpy="0 0 -1.57079632679" xyz="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="80.0" lower="-1.65" upper="4.05" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="FL_thigh">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/thigh.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0.04 0"/>
+      <geometry><cylinder length="0.08" radius="0.065"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0.03 -0.1413135"/>
+      <geometry><box size="0.075 0.06 0.282627"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0 0.018 -0.169"/>
+      <mass value="1.03"/>
+      <inertia ixx="0.018644469" ixy="5.2e-08" ixz="1.0157e-05"
+               iyy="0.019312599" iyz="0.002520077" izz="0.002838361"/>
+    </inertial>
+  </link>
+
+  <joint name="FL_thigh_to_FL_KFE_fixed" type="fixed">
+    <parent link="FL_thigh"/>
+    <child link="FL_KFE_MOTOR"/>
+    <origin rpy="0 0 1.57079632679" xyz="0.0 0.1003 -0.285"/>
+  </joint>
+
+  <link name="FL_KFE_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.07 0 0"/>
+      <geometry><cylinder length="0.14" radius="0.05"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="FL_calf_joint" type="revolute">
+    <parent link="FL_KFE_MOTOR"/>
+    <child link="FL_calf"/>
+    <origin rpy="0 0 -1.57079632679" xyz="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="80.0" lower="-2.72" upper="-0.78" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="FL_calf">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/shank_l.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0.02 0"/>
+      <geometry><cylinder length="0.04" radius="0.06"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0.057499 0.02 0"/>
+      <geometry><box size="0.114998 0.0675 0.04"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.03463 0.00688 0.00098"/>
+      <mass value="0.33742"/>
+      <inertia ixx="0.00032748005" ixy="2.142561e-05" ixz="1.33942e-05"
+               iyy="0.00110974122" iyz="7.601e-08" izz="0.00089388521"/>
+    </inertial>
+  </link>
+
+  <joint name="FL_calf_to_FL_foot_fixed" type="fixed">
+    <parent link="FL_calf"/>
+    <child link="FL_foot"/>
+    <origin rpy="0 0 0" xyz="0.08795 0.01305 -0.33797"/>
+  </joint>
+
+  <link name="FL_foot">
+    <visual><origin rpy="0 0 -0.785398163397" xyz="0 0 0"/><geometry><mesh filename="../meshes/foot.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.168985"/>
+      <geometry><cylinder length="0.282504" radius="0.0175"/></geometry>
+    </collision>
+    <collision><origin rpy="0 0 0" xyz="0 0 0.0225"/><geometry><sphere radius="0.03"/></geometry></collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.00948 -0.00948 0.1468"/>
+      <mass value="0.25"/>
+      <inertia ixx="0.00317174097" ixy="2.63048e-06" ixz="6.815581e-05"
+               iyy="0.00317174092" iyz="6.815583e-05" izz="8.319196e-05"/>
+    </inertial>
+  </link>
+
+
+  <!-- ==========================================================
+       FRONT RIGHT (FR) (was RF)
+       ========================================================== -->
+  <joint name="base_FR_HAA_fixed" type="fixed">
+    <parent link="base"/>
+    <child link="FR_HAA_MOTOR"/>
+    <origin rpy="-2.61799387799 0 0" xyz="0.2999 -0.104 0.0"/>
+  </joint>
+
+  <link name="FR_HAA_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="FR_hip_joint" type="revolute">
+    <parent link="FR_HAA_MOTOR"/>
+    <child link="FR_hip"/>
+    <origin rpy="2.61799387799 0 0" xyz="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="80.0" lower="-0.49" upper="0.72" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="FR_hip">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/hip_r.dae" scale="1 1 1"/></geometry></visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.048 -0.008 -0.003"/>
+      <mass value="0.74"/>
+      <inertia ixx="0.001393106" ixy="-8.4012e-05" ixz="2.3378e-05"
+               iyy="0.003798579" iyz="-7.1319e-05" izz="0.003897509"/>
+    </inertial>
+  </link>
+
+  <joint name="FR_hip_to_FR_HFE_fixed" type="fixed">
+    <parent link="FR_hip"/>
+    <child link="FR_HFE_MOTOR"/>
+    <origin rpy="0 0 -1.57079632679" xyz="0.0599 -0.08381 0.0"/>
+  </joint>
+
+  <link name="FR_HFE_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.07 0 0"/>
+      <geometry><cylinder length="0.14" radius="0.05"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="FR_thigh_joint" type="revolute">
+    <parent link="FR_HFE_MOTOR"/>
+    <child link="FR_thigh"/>
+    <origin rpy="0 0 1.57079632679" xyz="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit effort="80.0" lower="-1.65" upper="4.05" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="FR_thigh">
+    <visual><origin rpy="0 0 -3.14159265359" xyz="0 0 0"/><geometry><mesh filename="../meshes/thigh.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 -0.04 0"/>
+      <geometry><cylinder length="0.08" radius="0.065"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.03 -0.1413135"/>
+      <geometry><box size="0.075 0.06 0.282627"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0 -0.018 -0.169"/>
+      <mass value="1.03"/>
+      <inertia ixx="0.018644469" ixy="-5.2e-08" ixz="1.0157e-05"
+               iyy="0.019312599" iyz="-0.002520077" izz="0.002838361"/>
+    </inertial>
+  </link>
+
+  <joint name="FR_thigh_to_FR_KFE_fixed" type="fixed">
+    <parent link="FR_thigh"/>
+    <child link="FR_KFE_MOTOR"/>
+    <origin rpy="0 0 -1.57079632679" xyz="0.0 -0.1003 -0.285"/>
+  </joint>
+
+  <link name="FR_KFE_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.07 0 0"/>
+      <geometry><cylinder length="0.14" radius="0.05"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="FR_calf_joint" type="revolute">
+    <parent link="FR_KFE_MOTOR"/>
+    <child link="FR_calf"/>
+    <origin rpy="0 0 1.57079632679" xyz="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit effort="80.0" lower="-2.72" upper="-0.78" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="FR_calf">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/shank_r.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 -0.02 0"/>
+      <geometry><cylinder length="0.04" radius="0.06"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0.057499 -0.02 0"/>
+      <geometry><box size="0.114998 0.0675 0.04"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.03463 -0.00688 0.00098"/>
+      <mass value="0.33742"/>
+      <inertia ixx="0.00032748005" ixy="-2.142561e-05" ixz="1.33942e-05"
+               iyy="0.00110974122" iyz="-7.601e-08" izz="0.00089388521"/>
+    </inertial>
+  </link>
+
+  <joint name="FR_calf_to_FR_foot_fixed" type="fixed">
+    <parent link="FR_calf"/>
+    <child link="FR_foot"/>
+    <origin rpy="0 0 0" xyz="0.08795 -0.01305 -0.33797"/>
+  </joint>
+
+  <link name="FR_foot">
+    <visual><origin rpy="0 0 0.785398163397" xyz="0 0 0"/><geometry><mesh filename="../meshes/foot.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.168985"/>
+      <geometry><cylinder length="0.282504" radius="0.0175"/></geometry>
+    </collision>
+    <collision><origin rpy="0 0 0" xyz="0 0 0.0225"/><geometry><sphere radius="0.03"/></geometry></collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.00948 0.00948 0.1468"/>
+      <mass value="0.25"/>
+      <inertia ixx="0.00317174097" ixy="-2.63048e-06" ixz="6.815581e-05"
+               iyy="0.00317174092" iyz="-6.815583e-05" izz="8.319196e-05"/>
+    </inertial>
+  </link>
+
+
+  <!-- ==========================================================
+       REAR LEFT (RL) (was LH)
+       ========================================================== -->
+  <joint name="base_RL_HAA_fixed" type="fixed">
+    <parent link="base"/>
+    <child link="RL_HAA_MOTOR"/>
+    <origin rpy="-2.61799387799 0 -3.14159265359" xyz="-0.2999 0.104 0.0"/>
+  </joint>
+
+  <link name="RL_HAA_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="RL_hip_joint" type="revolute">
+    <parent link="RL_HAA_MOTOR"/>
+    <child link="RL_hip"/>
+    <origin rpy="-2.61799387799 0 -3.14159265359" xyz="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit effort="80.0" lower="-0.72" upper="0.49" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="RL_hip">
+    <visual><origin rpy="0 0 -3.14159265359" xyz="0 0 0"/><geometry><mesh filename="../meshes/hip_r.dae" scale="1 1 1"/></geometry></visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.048 0.008 -0.003"/>
+      <mass value="0.74"/>
+      <inertia ixx="0.001393106" ixy="-8.4012e-05" ixz="-2.3378e-05"
+               iyy="0.003798579" iyz="7.1319e-05" izz="0.003897509"/>
+    </inertial>
+  </link>
+
+  <joint name="RL_hip_to_RL_HFE_fixed" type="fixed">
+    <parent link="RL_hip"/>
+    <child link="RL_HFE_MOTOR"/>
+    <origin rpy="0 0 1.57079632679" xyz="-0.0599 0.08381 0.0"/>
+  </joint>
+
+  <link name="RL_HFE_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.07 0 0"/>
+      <geometry><cylinder length="0.14" radius="0.05"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="RL_thigh_joint" type="revolute">
+    <parent link="RL_HFE_MOTOR"/>
+    <child link="RL_thigh"/>
+    <origin rpy="0 0 -1.57079632679" xyz="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="80.0" lower="-1.65" upper="4.05" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="RL_thigh">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/thigh.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0.04 0"/>
+      <geometry><cylinder length="0.08" radius="0.065"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0.03 -0.1413135"/>
+      <geometry><box size="0.075 0.06 0.282627"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0 0.018 -0.169"/>
+      <mass value="1.03"/>
+      <inertia ixx="0.018644469" ixy="-5.2e-08" ixz="-1.0157e-05"
+               iyy="0.019312599" iyz="0.002520077" izz="0.002838361"/>
+    </inertial>
+  </link>
+
+  <joint name="RL_thigh_to_RL_KFE_fixed" type="fixed">
+    <parent link="RL_thigh"/>
+    <child link="RL_KFE_MOTOR"/>
+    <origin rpy="0 0 1.57079632679" xyz="-0.0 0.1003 -0.285"/>
+  </joint>
+
+  <link name="RL_KFE_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.07 0 0"/>
+      <geometry><cylinder length="0.14" radius="0.05"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="RL_calf_joint" type="revolute">
+    <parent link="RL_KFE_MOTOR"/>
+    <child link="RL_calf"/>
+    <origin rpy="0 0 -1.57079632679" xyz="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="80.0" lower="-2.72" upper="-0.78" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="RL_calf">
+    <visual><origin rpy="0 0 -3.14159265359" xyz="0 0 0"/><geometry><mesh filename="../meshes/shank_r.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0.02 0"/>
+      <geometry><cylinder length="0.04" radius="0.06"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="-0.057499 0.02 0"/>
+      <geometry><box size="0.114998 0.0675 0.04"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.03463 0.00688 0.00098"/>
+      <mass value="0.33742"/>
+      <inertia ixx="0.00032748005" ixy="-2.142561e-05" ixz="-1.33942e-05"
+               iyy="0.00110974122" iyz="7.601e-08" izz="0.00089388521"/>
+    </inertial>
+  </link>
+
+  <joint name="RL_calf_to_RL_foot_fixed" type="fixed">
+    <parent link="RL_calf"/>
+    <child link="RL_foot"/>
+    <origin rpy="0 0 0" xyz="-0.08795 0.01305 -0.33797"/>
+  </joint>
+
+  <link name="RL_foot">
+    <visual><origin rpy="0 0 -2.35619449019" xyz="0 0 0"/><geometry><mesh filename="../meshes/foot.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.168985"/>
+      <geometry><cylinder length="0.282504" radius="0.0175"/></geometry>
+    </collision>
+    <collision><origin rpy="0 0 0" xyz="0 0 0.0225"/><geometry><sphere radius="0.03"/></geometry></collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00948 -0.00948 0.1468"/>
+      <mass value="0.25"/>
+      <inertia ixx="0.00317174097" ixy="-2.63048e-06" ixz="-6.815581e-05"
+               iyy="0.00317174092" iyz="6.815583e-05" izz="8.319196e-05"/>
+    </inertial>
+  </link>
+
+
+  <!-- ==========================================================
+       REAR RIGHT (RR) (was RH)
+       ========================================================== -->
+  <joint name="base_RR_HAA_fixed" type="fixed">
+    <parent link="base"/>
+    <child link="RR_HAA_MOTOR"/>
+    <origin rpy="2.61799387799 0 -3.14159265359" xyz="-0.2999 -0.104 0.0"/>
+  </joint>
+
+  <link name="RR_HAA_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="RR_hip_joint" type="revolute">
+    <parent link="RR_HAA_MOTOR"/>
+    <child link="RR_hip"/>
+    <origin rpy="2.61799387799 0 -3.14159265359" xyz="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit effort="80.0" lower="-0.49" upper="0.72" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="RR_hip">
+    <visual><origin rpy="0 0 -3.14159265359" xyz="0 0 0"/><geometry><mesh filename="../meshes/hip_l.dae" scale="1 1 1"/></geometry></visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.048 -0.008 -0.003"/>
+      <mass value="0.74"/>
+      <inertia ixx="0.001393106" ixy="8.4012e-05" ixz="-2.3378e-05"
+               iyy="0.003798579" iyz="-7.1319e-05" izz="0.003897509"/>
+    </inertial>
+  </link>
+
+  <joint name="RR_hip_to_RR_HFE_fixed" type="fixed">
+    <parent link="RR_hip"/>
+    <child link="RR_HFE_MOTOR"/>
+    <origin rpy="0 0 -1.57079632679" xyz="-0.0599 -0.08381 0.0"/>
+  </joint>
+
+  <link name="RR_HFE_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.07 0 0"/>
+      <geometry><cylinder length="0.14" radius="0.05"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="RR_thigh_joint" type="revolute">
+    <parent link="RR_HFE_MOTOR"/>
+    <child link="RR_thigh"/>
+    <origin rpy="0 0 1.57079632679" xyz="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit effort="80.0" lower="-1.65" upper="4.05" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="RR_thigh">
+    <visual><origin rpy="0 0 -3.14159265359" xyz="0 0 0"/><geometry><mesh filename="../meshes/thigh.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 -0.04 0"/>
+      <geometry><cylinder length="0.08" radius="0.065"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.03 -0.1413135"/>
+      <geometry><box size="0.075 0.06 0.282627"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0 -0.018 -0.169"/>
+      <mass value="1.03"/>
+      <inertia ixx="0.018644469" ixy="5.2e-08" ixz="-1.0157e-05"
+               iyy="0.019312599" iyz="-0.002520077" izz="0.002838361"/>
+    </inertial>
+  </link>
+
+  <joint name="RR_thigh_to_RR_KFE_fixed" type="fixed">
+    <parent link="RR_thigh"/>
+    <child link="RR_KFE_MOTOR"/>
+    <origin rpy="0 0 -1.57079632679" xyz="-0.0 -0.1003 -0.285"/>
+  </joint>
+
+  <link name="RR_KFE_MOTOR">
+    <visual><origin rpy="0 0 0" xyz="0 0 0"/><geometry><mesh filename="../meshes/drive.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="-0.07 0 0"/>
+      <geometry><cylinder length="0.14" radius="0.05"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.063 7e-05 0.00046"/>
+      <mass value="2.04"/>
+      <inertia ixx="0.001053013" ixy="4.527e-05" ixz="8.855e-05"
+               iyy="0.001805509" iyz="9.909e-05" izz="0.001765827"/>
+    </inertial>
+  </link>
+
+  <joint name="RR_calf_joint" type="revolute">
+    <parent link="RR_KFE_MOTOR"/>
+    <child link="RR_calf"/>
+    <origin rpy="0 0 1.57079632679" xyz="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit effort="80.0" lower="-2.72" upper="-0.78" velocity="7.5"/>
+    <dynamics damping="0.01" friction="0.0"/>
+  </joint>
+
+  <link name="RR_calf">
+    <visual><origin rpy="0 0 -3.14159265359" xyz="0 0 0"/><geometry><mesh filename="../meshes/shank_l.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 -0.02 0"/>
+      <geometry><cylinder length="0.04" radius="0.06"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="-0.057499 -0.02 0"/>
+      <geometry><box size="0.114998 0.0675 0.04"/></geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.03463 -0.00688 0.00098"/>
+      <mass value="0.33742"/>
+      <inertia ixx="0.00032748005" ixy="2.142561e-05" ixz="-1.33942e-05"
+               iyy="0.00110974122" iyz="-7.601e-08" izz="0.00089388521"/>
+    </inertial>
+  </link>
+
+  <joint name="RR_calf_to_RR_foot_fixed" type="fixed">
+    <parent link="RR_calf"/>
+    <child link="RR_foot"/>
+    <origin rpy="0 0 0" xyz="-0.08795 -0.01305 -0.33797"/>
+  </joint>
+
+  <link name="RR_foot">
+    <visual><origin rpy="0 0 -3.92699081699" xyz="0 0 0"/><geometry><mesh filename="../meshes/foot.dae" scale="1 1 1"/></geometry></visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.168985"/>
+      <geometry><cylinder length="0.282504" radius="0.0175"/></geometry>
+    </collision>
+    <collision><origin rpy="0 0 0" xyz="0 0 0.0225"/><geometry><sphere radius="0.03"/></geometry></collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00948 0.00948 0.1468"/>
+      <mass value="0.25"/>
+      <inertia ixx="0.00317174097" ixy="2.63048e-06" ixz="-6.815581e-05"
+               iyy="0.00317174092" iyz="-6.815583e-05" izz="8.319196e-05"/>
+    </inertial>
+  </link>
+
+</robot>
